@@ -1,18 +1,8 @@
-# Simple::Object::Container
+# SimpleObjectContainer
 
-TODO: Write a gem description
+SimpleObjectContainer is a simple gem that is like Object::Container Perl module(http://search.cpan.org/~typester/Object-Container-0.14/lib/Object/Container.pm)
 
 ## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'simple-object-container'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
 
     $ gem install simple-object-container
 

@@ -8,9 +8,10 @@ Gem::Specification.new do |gem|
   gem.version       = SimpleObjectContainer::VERSION
   gem.authors       = ["Shinpei Maruyama"]
   gem.email         = ["shinpeim@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{simple object container for ruby}
+  gem.summary       = %q{SimpleObjectContainer is a simple gem that is like Object::Container Perl module(http://search.cpan.org/~typester/Object-Container-0.14/lib/Object/Container.pm)
+}
+  gem.homepage      = "https://github.com/Shinpeim/SimpleObjectContainer"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
