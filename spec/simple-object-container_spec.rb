@@ -62,6 +62,14 @@ describe SimpleObjectContainer do
           it "return a instance of SomeClass" do
             subject.should be_instance_of SomeClass
           end
+          it "always return same object" do
+            subject.should be_equal container.get(:key)
+          end
+        end
+        context "when Given OtherClass" do
+          it "should raise error if given no registerd class" do
+            ->(){container.get(:other_key)}.should raise_error SimpleObjectContainer::KeyIsNotRegisterd
+          end
         end
       end
     end
