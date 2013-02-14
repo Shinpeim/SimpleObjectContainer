@@ -20,6 +20,9 @@ describe SimpleObjectContainer do
         it "always return same object" do
           container.get(SomeClass).should be_equal container.get(SomeClass)
         end
+        it "should raise error if given no registerd class" do
+          ->(){container.get(OtherClass)}.should raise_error SimpleObjectContainer::KeyIsNotRegisterd
+        end
       end
     end
   end
