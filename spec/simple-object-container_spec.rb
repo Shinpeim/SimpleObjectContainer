@@ -13,15 +13,19 @@ describe SimpleObjectContainer do
         container.register(SomeClass)
       end
       describe "#get" do
-        context "given SomeClass"
-        it "return a instance of SomeClass" do
-          container.get(SomeClass).should be_instance_of SomeClass
+        context "when given SomeClass" do
+          subject {container.get(SomeClass)}
+          it "return a instance of SomeClass" do
+            subject.should be_instance_of SomeClass
+          end
+          it "always return same object" do
+            subject.should be_equal container.get(SomeClass)
+          end
         end
-        it "always return same object" do
-          container.get(SomeClass).should be_equal container.get(SomeClass)
-        end
-        it "should raise error if given no registerd class" do
-          ->(){container.get(OtherClass)}.should raise_error SimpleObjectContainer::KeyIsNotRegisterd
+        context "when Given OtherClass" do
+          it "should raise error if given no registerd class" do
+            ->(){container.get(OtherClass)}.should raise_error SimpleObjectContainer::KeyIsNotRegisterd
+          end
         end
       end
     end
