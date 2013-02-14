@@ -1,7 +1,17 @@
 require "simple-object-container/version"
 class SimpleObjectContainer
-  def register(klass)
-    set_instance_to_instance_table(klass, klass.new)
+  def register(key, klass = nil)
+    if key.class != Class && key.class !=Symbol
+      raise ArgumentError,"key should be Class or Symbol"
+    end
+
+    if key.class == Class
+      register_class_by_class(key)
+    elsif key.class == Symbol
+      register_class_by_symbol(key,klass)
+    else
+      raise "assert"; #never reach here ;)
+    end
   end
 
   def get(klass)
@@ -9,6 +19,13 @@ class SimpleObjectContainer
   end
 
   private
+  def register_class_by_class(klass)
+    set_instance_to_instance_table(klass, klass.new)
+  end
+  def register_class_by_symbol(key,klass)
+    set_instance_to_instance_table(key, klass.new)
+  end
+
   def get_instance(klass)
     instance = @instance_table[klass.__id__]
     raise KeyIsNotRegisterd if instance.nil?
