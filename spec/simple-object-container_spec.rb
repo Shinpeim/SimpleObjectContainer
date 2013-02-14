@@ -51,5 +51,19 @@ describe SimpleObjectContainer do
         end
       end
     end
+
+    context "when lambda(that return a instance of SomeClass) is registered with a simbol(:key)" do
+      before do
+        container.register(:key, ->(){SomeClass.new})
+      end
+      describe "#get" do
+        context "when given :key" do
+          subject {container.get(:key)}
+          it "return a instance of SomeClass" do
+            subject.should be_instance_of SomeClass
+          end
+        end
+      end
+    end
   end
 end
