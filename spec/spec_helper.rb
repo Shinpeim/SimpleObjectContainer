@@ -4,3 +4,4 @@ require 'rspec'
 require 'simple-object-container'
 
 class SomeClass;end
+class OtherClass;end
