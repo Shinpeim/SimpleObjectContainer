@@ -41,11 +41,13 @@ class SimpleObjectContainer
   end
 
   def get_instance(key)
+    return instance_table[key] if instance_table[key]
+
     loader = loader_table[key]
     raise KeyIsNotRegisterd if loader.nil?
 
     instance_table[key] ||= loader.call
-    return instance_table[key]
+    instance_table[key]
   end
 end
 class SimpleObjectContainer
