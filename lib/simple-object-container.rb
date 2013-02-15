@@ -15,30 +15,37 @@ class SimpleObjectContainer
       raise "assert"; #never reach here ;)
     end
   end
-
   def get(klass)
     get_instance(klass)
   end
 
   private
-  def register_class_by_class(klass)
-    set_instance_to_instance_table(klass, klass.new)
+  def instance_table
+    @instance_table ||= {}
   end
-  def register_class_by_symbol(key,klass)
-    set_instance_to_instance_table(key, klass.new)
-  end
-  def register_lambda_by_symbol(key,lambda)
-    set_instance_to_instance_table(key, lambda.call)
+  def loader_table
+    @loader_table ||= {}
   end
 
-  def get_instance(klass)
-    instance = @instance_table[klass.__id__]
-    raise KeyIsNotRegisterd if instance.nil?
-    return instance
+  def register_class_by_class(klass)
+    register_loader(klass, ->(){klass.new})
   end
-  def set_instance_to_instance_table(klass, instance)
-    @instance_table ||= {}
-    @instance_table[klass.__id__] = instance
+  def register_class_by_symbol(key,klass)
+    register_loader(key, ->(){klass.new})
+  end
+  def register_lambda_by_symbol(key,lambda)
+    register_loader(key, lambda)
+  end
+  def register_loader(key,loader)
+    loader_table[key] = loader
+  end
+
+  def get_instance(key)
+    loader = loader_table[key]
+    raise KeyIsNotRegisterd if loader.nil?
+
+    instance_table[key] ||= loader.call
+    return instance_table[key]
   end
 end
 class SimpleObjectContainer
